@@ -23,4 +23,6 @@ if __name__ == '__main__':
         authenticate_implicit_with_adc('abc')
         print('test')
     except:
-        print('failed')
+        print('failed!!!')
+    finally:
+        print('~ thank you for using this script ~')
