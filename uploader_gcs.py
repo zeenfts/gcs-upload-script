@@ -3,6 +3,7 @@ from google.cloud import storage
 def authenticate_implicit_with_adc(project_id="your-google-cloud-project-id"):
     """
     The library can auto-detect the credentials of Google Cloud Client to use.
+    Only if:
 
     * Before running this sample, run in terminal `gcloud auth application-default login`
     as described in https://cloud.google.com/docs/authentication/external/set-up-adc
