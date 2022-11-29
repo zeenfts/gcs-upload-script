@@ -1,3 +1,6 @@
+import os
+import sys
+import argparse
 from google.cloud import storage
 
 def authenticate_implicit_with_adc(project_id="your-google-cloud-project-id"):
@@ -19,10 +22,16 @@ def authenticate_implicit_with_adc(project_id="your-google-cloud-project-id"):
         print(bucket.name)
     print("Listed all storage buckets.")
 
+def args_p():
+    parser = argparse.ArgumentParser(description='input for gcp_project_id, gcp_bucket_name, and image_url')
+    parser.add_argument('project_id', type=str, help='Type in your GCP project id')
+    args = parser.parse_args()
+    return args
+
 if __name__ == '__main__':
     try:
-        authenticate_implicit_with_adc('abc')
-        print('test')
+        authenticate_implicit_with_adc(args_p().project_id)
+        print('image uploaded')
     except:
         print('failed!!!')
     finally:
