@@ -4,8 +4,9 @@ import argparse
 import google.auth
 import urllib.request as rqlib
 from google.cloud import storage
+from google.oauth2 import service_account
 
-def upload_img_gcs(GCP_BUCKET, GCP_PROJECT='x'):
+def upload_img_gcs(GCP_PROJECT, GCP_BUCKET):
     """
     The library can auto-detect the credentials of Google Cloud Client to use.
     Only if:
@@ -18,12 +19,17 @@ def upload_img_gcs(GCP_BUCKET, GCP_PROJECT='x'):
     * For the credentials file (.json) need to copy inside this file.
     """
 
-    credentials, project_id = google.auth.default()
-    storage_client = storage.Client(project=project_id)
+    CREDS_AUTH = service_account.Credentials.from_service_account_file('<PATH_TO_YOUR_JSON_SERVICE_CREDENTIAL_KEY>')
+
+    scoped_credentials = CREDS_AUTH.with_scopes(
+        ['https://www.googleapis.com/auth/cloud-platform'])
+    # credentials, project_id = google.auth.default()
+
+    # Setting Credentials using SERVICE ACCOUNT CREDENTIALS if use ADC just remove the 'credentials param'
+    storage_client = storage.Client(project=GCP_PROJECT, credentials=CREDS_AUTH)
 
     buckets_list = storage_client.list_buckets() # list all bucket
     bck_ls = [bc.name for bc in buckets_list if (bc.name in GCP_BUCKET)] # get all bucket name
-    # res = [ele for ele in test_list if(ele in test_string)]
 
     if not bool(bck_ls):
         bucket = storage_client.create_bucket(GCP_BUCKET) # make new bucket
@@ -34,9 +40,9 @@ def upload_img_gcs(GCP_BUCKET, GCP_PROJECT='x'):
 def args_p():
     """Argument to pass into terminal/script"""
     parser = argparse.ArgumentParser(description='> Image Uploader to Google Cloud Storage <')
-    # parser.add_argument('project_id',type=str,
-    # metavar='PROJECT_GCP',
-    # help='Type in your GCP project id (existed)')
+    parser.add_argument('project_id',type=str,
+    metavar='PROJECT_GCP',
+    help='Type in your GCP project id (existed)')
         
     parser.add_argument('bucket_name',type=str,
     metavar='BUCKET_GCP',
@@ -68,7 +74,7 @@ if __name__ == '__main__':
         prgs = args_p()
 
         img_file = get_img_online(prgs.img_url)
-        buckt = upload_img_gcs(prgs.bucket_name)
+        buckt = upload_img_gcs(prgs.project_id, prgs.bucket_name)
         blob = buckt.blob(prgs.img_name)
         blob.upload_from_string(img_file.read(), content_type='image/jpg')
 

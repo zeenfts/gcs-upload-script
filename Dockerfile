@@ -16,6 +16,7 @@ RUN pip install -r requirements.txt
 
 # Copy the rest of files
 COPY uploader_gcs.py .
+COPY *.json .
 
 # Execute the script
 # CMD ["/envgcs/bin/activate"]
