@@ -1,4 +1,5 @@
-import sys
+# import sys
+import os
 import time
 import argparse
 import google.auth
@@ -19,7 +20,12 @@ def upload_img_gcs(GCP_PROJECT, GCP_BUCKET):
     * For the credentials file (.json) need to copy inside this file.
     """
 
-    CREDS_AUTH = service_account.Credentials.from_service_account_file('<PATH_TO_YOUR_JSON_SERVICE_CREDENTIAL_KEY>')
+    for fcd in os.listdir():
+        print(fcd)
+        if fcd.endswith('.json'): # U must only give one json file inside
+            GCP_CREDS = fcd
+
+    CREDS_AUTH = service_account.Credentials.from_service_account_file(GCP_CREDS)
 
     scoped_credentials = CREDS_AUTH.with_scopes(
         ['https://www.googleapis.com/auth/cloud-platform'])

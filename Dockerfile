@@ -14,7 +14,7 @@ COPY requirements.txt .
 RUN pip install --upgrade pip 
 RUN pip install -r requirements.txt
 
-# Copy the rest of files
+# Copy the rest of files (note for json, please only PROVIDE ONE CREDENTIALS FILE!)
 COPY uploader_gcs.py .
 COPY *.json .
 

@@ -1,2 +1,4 @@
 envgcs/
+env/
+venv/
 *.json
