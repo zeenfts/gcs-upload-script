@@ -58,6 +58,8 @@ def args_p():
     help='Type your online image URL',
     default='https://images.unsplash.com/photo-1553550319-d8d5393e1c80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c25vdyUyMGhvdXNlfGVufDB8fDB8fA%3D%3D&w=1000&q=80.jpg')
 
+    # "https://wordpress.org/plugins/about/readme.txt" ~ to test for non-image
+    
     t = time.localtime()
     current_time = str(time.strftime("%y%m%d%H%M%S", t)) # now time yymmddHHMMSS
 
