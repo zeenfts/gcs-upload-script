@@ -6,7 +6,7 @@ Info:
 2. Docker installed locally.
 3. GCloud CLI SDK Installed locally.
 4. If above prerequisites already met. `Clone or Download this repository`.
-5. Inside GCP you need to go to [Service Account](https://console.cloud.google.com/iam-admin/serviceaccounts) and set the credentials until you get the key (json) - you only need one file!.
+5. Inside GCP you need to go to [Service Account](https://console.cloud.google.com/iam-admin/serviceaccounts) and set the credentials until you get the key (json) - you only need ONE FILE!.
 6. Copy that key inside this repository locally on your PC (be careful that this can expose it, **no secret!**).
 7. Then you can run the script as shown on [this shell file (.sh)](https://github.com/zeenfts/gcs-upload-script/blob/main/run_script.sh), just provide the necessary or correct value inside `< >` brackets.
 
