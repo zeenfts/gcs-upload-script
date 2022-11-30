@@ -21,7 +21,6 @@ def upload_img_gcs(GCP_PROJECT, GCP_BUCKET):
     """
 
     for fcd in os.listdir():
-        print(fcd)
         if fcd.endswith('.json'): # U must only give one json file inside
             GCP_CREDS = fcd
 
