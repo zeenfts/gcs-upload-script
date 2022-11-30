@@ -81,7 +81,7 @@ if __name__ == '__main__':
         img_file = get_img_online(prgs.img_url)
         buckt = upload_img_gcs(prgs.project_id, prgs.bucket_name)
         blob = buckt.blob(prgs.img_name)
-        blob.upload_from_string(img_file.read(), content_type='image/jpg')
+        blob.upload_from_string(img_file.read(), content_type='text/plain')
 
         print('image uploaded v')
     except:
