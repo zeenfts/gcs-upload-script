@@ -44,7 +44,7 @@ def upload_img_gcs(GCP_PROJECT, GCP_BUCKET):
 
 def args_p():
     """Argument to pass into terminal/script"""
-    parser = argparse.ArgumentParser(description='> Image Uploader to Google Cloud Storage <')
+    parser = argparse.ArgumentParser(description='> File Uploader to Google Cloud Storage <')
     parser.add_argument('project_id',type=str,
     metavar='PROJECT_GCP',
     help='Type in your GCP project id (existed)')
@@ -53,9 +53,9 @@ def args_p():
     metavar='BUCKET_GCP',
     help='Type your GCP bucket name (existed or create new)')
 
-    parser.add_argument('-i', '--img_url',type=str,
-    metavar='IMAGE_URL',
-    help='Type your online image URL',
+    parser.add_argument('-i', '--file_url',type=str,
+    metavar='FILE_URL',
+    help='Type your online file URL',
     default='https://images.unsplash.com/photo-1553550319-d8d5393e1c80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c25vdyUyMGhvdXNlfGVufDB8fDB8fA%3D%3D&w=1000&q=80.jpg')
 
     # "https://wordpress.org/plugins/about/readme.txt" ~ to test for non-image
@@ -63,30 +63,30 @@ def args_p():
     t = time.localtime()
     current_time = str(time.strftime("%y%m%d%H%M%S", t)) # now time yymmddHHMMSS
 
-    parser.add_argument('-n', '--img_name', type=str,
-    metavar='IMAGE_NAME',
-    help='Type your online image name for uploaded to the GCS',
+    parser.add_argument('-n', '--file_name', type=str,
+    metavar='afile_NAME',
+    help='Type your online file name for uploaded to the GCS',
     default=f'snow_house_{current_time}.jpg')
 
     args = parser.parse_args()
     return args
 
-def get_img_online(URL_IMG):
-    """Retrieved and opened image from the internet by URL"""
-    file = rqlib.urlopen(URL_IMG)
+def get_img_online(URL_file):
+    """Retrieved and opened file from the internet by URL"""
+    file = rqlib.urlopen(URL_file)
     return file
 
 if __name__ == '__main__':
     try:
         prgs = args_p()
 
-        img_file = get_img_online(prgs.img_url)
+        online_file = get_img_online(prgs.file_url)
         buckt = upload_img_gcs(prgs.project_id, prgs.bucket_name)
-        blob = buckt.blob(prgs.img_name)
-        blob.upload_from_string(img_file.read(), content_type='text/plain')
+        blob = buckt.blob(prgs.file_name)
+        blob.upload_from_string(online_file.read(), content_type='text/plain')
 
-        print('image uploaded v')
+        print('File Uploaded v')
     except:
-        print('failed x')
+        print('Failed x')
     finally:
-        print('~ thank you for using this script ~')
+        print('~ Thank You for using this Script ~')
